@@ -1,16 +1,15 @@
-// src/components/Footer.jsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { Facebook, Twitter, Instagram } from "lucide-react";
 import Lottie from "lottie-react";
+import Link from "next/link";
 
 const Footer = () => {
   const [animationData, setAnimationData] = useState(null);
 
   useEffect(() => {
-    // Fetch Lottie JSON dynamically
-    fetch("/lottie/moving.json") // replace with your preferred Lottie URL
+    fetch("/lottie/moving.json")
       .then((res) => res.json())
       .then((data) => setAnimationData(data))
       .catch((err) => console.error("Failed to load Lottie:", err));
@@ -33,9 +32,9 @@ const Footer = () => {
             Premium online marketplace for buying and selling cars. Browse thousands of verified listings with ease.
           </p>
           <div className="flex space-x-4 mt-2">
-            <a href="#" className="hover:text-blue-600 transition"><Facebook size={20} /></a>
-            <a href="#" className="hover:text-blue-600 transition"><Twitter size={20} /></a>
-            <a href="#" className="hover:text-blue-600 transition"><Instagram size={20} /></a>
+            <a href="#" aria-label="Facebook" className="hover:text-blue-600 transition"><Facebook size={20} /></a>
+            <a href="#" aria-label="Twitter" className="hover:text-blue-600 transition"><Twitter size={20} /></a>
+            <a href="#" aria-label="Instagram" className="hover:text-blue-600 transition"><Instagram size={20} /></a>
           </div>
         </div>
 
@@ -43,10 +42,18 @@ const Footer = () => {
         <div className="space-y-2">
           <h4 className="font-semibold text-lg">Quick Links</h4>
           <ul className="space-y-1 text-gray-700 text-sm">
-            <li><a href="/" className="hover:text-blue-600 transition">Home</a></li>
-            <li><a href="/listings" className="hover:text-blue-600 transition">Listings</a></li>
-            <li><a href="#about" className="hover:text-blue-600 transition">About</a></li>
-            <li><a href="#contact" className="hover:text-blue-600 transition">Contact</a></li>
+            <li>
+              <Link href="/" className="hover:text-blue-600 transition">Home</Link>
+            </li>
+            <li>
+              <Link href="/listings" className="hover:text-blue-600 transition">Listings</Link>
+            </li>
+            <li>
+              <Link href="/#about" className="hover:text-blue-600 transition">About</Link>
+            </li>
+            <li>
+              <Link href="/#contact" className="hover:text-blue-600 transition">Contact</Link>
+            </li>
           </ul>
         </div>
 

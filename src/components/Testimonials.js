@@ -42,7 +42,10 @@ const TestimonialCard = ({ testimonial, index }) => (
         className="w-full h-full object-cover"
       />
     </div>
-    <p className="text-gray-700 italic mb-4 text-lg md:text-xl">"{testimonial.quote}"</p>
+    {/* Fixed: no nested quotes inside JSX */}
+    <p className="text-gray-700 italic mb-4 text-lg md:text-xl">
+      &ldquo;{testimonial.quote}&rdquo;
+    </p>
     <h4 className="text-lg md:text-xl font-semibold text-gray-800">{testimonial.name}</h4>
     <span className="text-gray-500 text-sm md:text-base">{testimonial.role}</span>
   </motion.div>

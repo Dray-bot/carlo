@@ -74,6 +74,7 @@ export default function BlogPage() {
                 src={post.img}
                 alt={post.title}
                 fill
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition flex items-center justify-center">
@@ -85,7 +86,7 @@ export default function BlogPage() {
             <div className="p-4">
               <h3 className="text-lg font-semibold text-gray-800">{post.title}</h3>
               <p className="text-gray-500 text-sm mt-1">
-                By {post.author} &bull; {post.date}
+                By {post.author} &amp;bull; {post.date}
               </p>
               <p className="text-gray-600 mt-2">{post.excerpt}</p>
             </div>
@@ -95,3 +96,4 @@ export default function BlogPage() {
     </main>
   );
 }
+
