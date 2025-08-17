@@ -1,7 +1,7 @@
-// app/blog/page.js
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const blogPosts = [
   {
@@ -70,10 +70,11 @@ export default function BlogPage() {
             whileHover={{ scale: 1.02 }}
           >
             <div className="relative w-full h-48">
-              <img
+              <Image
                 src={post.img}
                 alt={post.title}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition flex items-center justify-center">
                 <button className="bg-blue-600 text-white px-4 py-2 rounded-full shadow hover:bg-blue-700">
@@ -84,7 +85,7 @@ export default function BlogPage() {
             <div className="p-4">
               <h3 className="text-lg font-semibold text-gray-800">{post.title}</h3>
               <p className="text-gray-500 text-sm mt-1">
-                By {post.author} • {post.date}
+                By {post.author} &bull; {post.date}
               </p>
               <p className="text-gray-600 mt-2">{post.excerpt}</p>
             </div>

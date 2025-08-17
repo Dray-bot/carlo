@@ -1,4 +1,3 @@
-// app/deals/page.js
 "use client";
 
 import { motion } from "framer-motion";
@@ -54,7 +53,7 @@ export default function DealsPage() {
         Hot Deals
       </motion.h1>
       <p className="text-gray-600 text-center max-w-2xl mx-auto text-lg md:text-xl mb-12">
-        Grab the best offers on selected cars before they’re gone.
+        Grab the best offers on selected cars before they&apos;re gone.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
