@@ -339,6 +339,8 @@ export default function ListingsPage() {
     return copy;
   }, [filteredBrands, sortOrder]);
 
+  // NOTE: Keeping the function in case you want snapping-by-code later,
+  // but the row now relies on native scroll + CSS snap for reliability.
   const handleDragEnd = (e, info) => {
     const container = containerRef.current;
     if (!container) return;
@@ -369,17 +371,16 @@ export default function ListingsPage() {
         Browse all available cars from verified sellers. Filter by brand and price to find your perfect ride.
       </p>
 
+      {/* Brand scroller: native scroll + CSS snap (no framer drag) */}
       <motion.div
         ref={containerRef}
-        className="flex space-x-4 overflow-x-scroll scrollbar-hide mb-8 py-2 px-2 cursor-grab"
-        drag="x"
-        dragConstraints={{ left: -1000, right: 0 }}
-        onDragEnd={handleDragEnd}
-        whileTap={{ cursor: "grabbing" }}
+        className="flex space-x-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide mb-8 py-2 px-2"
+        style={{ WebkitOverflowScrolling: "touch" }}
+        aria-label="Filter by brand"
       >
         <motion.button
           onClick={() => setSelectedBrand("All")}
-          className={`flex-shrink-0 px-4 py-2 rounded-full border ${
+          className={`flex-shrink-0 snap-start px-4 py-2 rounded-full border ${
             selectedBrand === "All"
               ? "bg-blue-600 text-white"
               : "bg-white text-gray-800 border-gray-300"
@@ -387,20 +388,29 @@ export default function ListingsPage() {
         >
           All
         </motion.button>
+
         {Object.keys(brandLogos).map((brand) => (
           <motion.button
             key={brand}
             onClick={() => setSelectedBrand(brand)}
-            className={`flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-full border ${
+            className={`flex-shrink-0 snap-start flex items-center space-x-2 px-4 py-2 rounded-full border ${
               selectedBrand === brand
                 ? "bg-blue-600 text-white"
                 : "bg-white text-gray-800 border-gray-300"
             } transition`}
           >
-            <Image src={brandLogos[brand]} alt={brand} width={24} height={24} className="object-contain" />
+            <Image
+              src={brandLogos[brand]}
+              alt={brand}
+              width={24}
+              height={24}
+              className="object-contain"
+            />
             <span className="hidden sm:inline">{brand}</span>
           </motion.button>
         ))}
+        {/* trailing spacer so last pill isn't clipped */}
+        <div className="flex-shrink-0 w-2" aria-hidden />
       </motion.div>
 
       <div className="flex justify-center mb-12">
@@ -445,7 +455,9 @@ export default function ListingsPage() {
                   className="w-full h-48 object-cover rounded-md mb-4"
                 />
                 <h3 className="text-lg font-semibold text-gray-800">{car.model}</h3>
-                <p className="text-gray-600 mt-1">${car.price.toLocaleString()}</p>
+                <p className="text-gray-600 mt-1">
+                  ${car.price.toLocaleString()}
+                </p>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent backdrop-blur-sm flex items-center justify-center gap-4 opacity-0 hover:opacity-100 transition duration-300">
                   <button className="bg-blue-600 text-white px-4 py-2 rounded-full font-semibold shadow hover:bg-blue-700">
                     View
